@@ -6,17 +6,23 @@
  - The core network is an RNN. It takes the representation from glimpse network and previous hidden state as input and then produces the new hidden state.
  - The location network and action network takes the new hidden state of the RNN as input and produce new location for the glimpse network to extract the new representation and the new action, respectively.
  - This repository includes experiments on the original MNIST and the translated MNIST dataset. The classification accuracy on the translated MNIST dataset is 97.82%.
- 
+
 ## Requirements
 - Python 3.3+
 - [Tensorflow 1.8+](https://www.tensorflow.org/)
+
+## Installation
+
+```
+  pip install -r requirements.txt
+```
 
 ## Implementation Details
 - The RAM model is defined in [`lib/model/ram.py`](lib/model/ram.py).
 - An example of MNIST dataset classification is in [`example/mnist.py`](example/mnist.py).
 - The action network, core network and glimpse network are trained by the classification cross entropy loss.
 - The location network is trained through the algorithm [REINFORCE](http://www-anw.cs.umass.edu/~barto/courses/cs687/williams92simple.pdf).
-- The reward baseline network is trained by the MSE loss between baseline and reward.  
+- The reward baseline network is trained by the MSE loss between baseline and reward.
 
 ## Result
 ### Centered MNIST
@@ -50,13 +56,13 @@ Learning Rate <td colspan=3>1e-3 (initial) and decay with 0.97 for every 500 ste
 ![trans](figs/trans.gif)
 
 ## Usage
-### 
+###
 - Download the MNIST dataset from [here](http://yann.lecun.com/exdb/mnist/).
 - Setup path in [`example/read_mnist.py`](example/read_mnist.py): `DATA_PATH ` is the directory to put MNIST dataset.
 - Setup path in [`example/mnist.py`](example/mnist.py): `SAVE_PATH  ` is the directory to save trained models during training. `RESULT_PATH ` is the directory to save prediction results.
 
 ### Argument
-Run the script [`examples/read_mnist.py`](examples/read_mnist.py) to train and test the model. Here are all the arguments:
+Run the script [`examples/mnist.py`](examples/mnist.py) to train and test the model. Here are all the arguments:
 
 * `--train`: Train the model.
 * `--eval`: Evaluate the model.
@@ -76,7 +82,7 @@ Run the script [`examples/read_mnist.py`](examples/read_mnist.py) to train and t
 - Go to `examples/`, then run
 
 ```
-python --train --dataset DATASET
+python mnist.py --train --dataset DATASET
 ```
 - `--dataset center` for original MNIST. `--dataset translate` for translated MNIST with size 60 x 60.
 
@@ -84,7 +90,7 @@ python --train --dataset DATASET
 - Go to `examples/`, then run
 
 ```
-python --eval --dataset DATASET --load RESTORE_ID
+python mnist.py --eval --dataset DATASET --load RESTORE_ID
 ```
 - The accuarcy on testing set will be printed out.
 
